@@ -2,7 +2,7 @@ Installation
 ------------
 
 ```javascript
-yarn add @do1/api-extractor --dev
+yarn add do1-api-extractor --dev
 ```
 
 Usage

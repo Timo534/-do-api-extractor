@@ -1,5 +1,5 @@
 {
-  "name": "@do1/api-extractor",
+  "name": "do1-api-extractor",
   "version": "0.0.1",
   "description": "api-extractor for do1",
   "main": "index.js",
