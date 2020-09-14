@@ -168,7 +168,6 @@ function writeFile (config) {
  *@return {Object} 接口返回的数据
 */
 async function getData (url) {
-  console.log(url)
   if (/^(http|https):\/\//.test(url)) {
     const result = await axios.get(url)
       .catch(() => {
