@@ -1,0 +1,2086 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "广东道一信息技术股份有限公司",
+    "version": "1.1.4",
+    "title": "DSF文档",
+    "termsOfService": "http://www.do1.com.cn/"
+  },
+  "host": "192.168.23.158:21003",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "JS-SDK接口",
+      "description": "Weixin JSSDK Ctl"
+    },
+    {
+      "name": "_status",
+      "description": "状态码列表"
+    },
+    {
+      "name": "应用端通讯录操作",
+      "description": "Dept Ptl Controller"
+    },
+    {
+      "name": "流程—流程公共接口",
+      "description": "Flow Common Controller"
+    },
+    {
+      "name": "系统—图片附件管理",
+      "description": "File Media Mgr Ctl"
+    },
+    {
+      "name": "系统—文件导出管理",
+      "description": "File Report Mgr Ctl"
+    },
+    {
+      "name": "系统—法定节假日管理",
+      "description": "Legal Holiday Controller"
+    }
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/common/addresssbook/departments/{id}/users": {
+      "get": {
+        "tags": [
+          "应用端通讯录操作"
+        ],
+        "summary": "通讯录部门人员分页查询",
+        "description": "通讯录部门人员分页查询",
+        "operationId": "listPersonsByDepartmentIdUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/common/addresssbook/{departId}/getDepartList": {
+      "get": {
+        "tags": [
+          "应用端通讯录操作"
+        ],
+        "summary": "通讯录部门查询",
+        "operationId": "countersignatureFlowUsingGET",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "addressBookDepartmentBean",
+            "description": "addressBookDepartmentBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/通讯录入参",
+              "originalRef": "通讯录入参"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "departId",
+            "in": "path",
+            "description": "departId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/通讯录返回实体",
+              "originalRef": "通讯录返回实体"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/common/addresssbook/{departId}/getUserList": {
+      "get": {
+        "tags": [
+          "应用端通讯录操作"
+        ],
+        "summary": "通讯录人员查询",
+        "description": "通讯录人员查询",
+        "operationId": "listPersonsByDepartmentIdUsingGET_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "addressBookDepartmentBean",
+            "description": "addressBookDepartmentBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/通讯录入参",
+              "originalRef": "通讯录入参"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "departId",
+            "in": "path",
+            "description": "departId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/通讯录返回实体",
+              "originalRef": "通讯录返回实体"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/createFlowModel": {
+      "post": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "创建流程模型",
+        "operationId": "createFlowModelUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "flowModelName",
+            "in": "query",
+            "description": "流程模型名称",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "flowType",
+            "in": "query",
+            "description": "流程类型",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/流程-回退节点出参",
+              "originalRef": "流程-回退节点出参"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getAskInfo": {
+      "post": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "查看申请实例",
+        "operationId": "getAskInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "flowInfoBean",
+            "description": "flowInfoBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/流程-查看流程入参",
+              "originalRef": "流程-查看流程入参"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/流程-查看流程详情出参",
+              "originalRef": "流程-查看流程详情出参"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getCirculationDetails": {
+      "get": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "查询流程实例流转明细",
+        "operationId": "getCirculationDetailsUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "flowType",
+            "in": "query",
+            "description": "流程类型",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "流程实例id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/流程-流转明细出参",
+                "originalRef": "流程-流转明细出参"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getFlowModel": {
+      "get": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "查看流程模型",
+        "operationId": "getFlowModelUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "flowModelCode",
+            "in": "query",
+            "description": "流程模型码",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "flowType",
+            "in": "query",
+            "description": "流程类型",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/流程-回退节点出参",
+              "originalRef": "流程-回退节点出参"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getMyCc": {
+      "post": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "获取抄送我列表",
+        "operationId": "getMyCcUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "flowSearchPageBean",
+            "description": "flowSearchPageBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/流程-流程列表入参",
+              "originalRef": "流程-流程列表入参"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RestPage«CopyToTaskEntity»",
+              "originalRef": "RestPage«CopyToTaskEntity»"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getMyHandle": {
+      "post": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "获取已处理列表",
+        "operationId": "getMyHandleUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "flowSearchPageBean",
+            "description": "flowSearchPageBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/流程-流程列表入参",
+              "originalRef": "流程-流程列表入参"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RestPage«HaveDoneTaskEntity»",
+              "originalRef": "RestPage«HaveDoneTaskEntity»"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getMyInitiate": {
+      "post": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "获取用户发起的列表",
+        "operationId": "getMyInitiateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "flowSearchPageBean",
+            "description": "flowSearchPageBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/流程-流程列表入参",
+              "originalRef": "流程-流程列表入参"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RestPage«InitiateTaskEntity»",
+              "originalRef": "RestPage«InitiateTaskEntity»"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/getMyTodo": {
+      "post": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "获取待处理列表",
+        "operationId": "getMyTodoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "flowSearchPageBean",
+            "description": "flowSearchPageBean",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/流程-流程列表入参",
+              "originalRef": "流程-流程列表入参"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RestPage«TodoTaskEntity»",
+              "originalRef": "RestPage«TodoTaskEntity»"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/flow/updateFlowModelName": {
+      "patch": {
+        "tags": [
+          "流程—流程公共接口"
+        ],
+        "summary": "修改流程模型名称",
+        "operationId": "updateFlowModelNameUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "flowModelCode",
+            "in": "query",
+            "description": "流程模型码",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "flowType",
+            "in": "query",
+            "description": "流程类型",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newFlowModelName",
+            "in": "query",
+            "description": "新流程模型名",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/file/media/getFileMediaList.do": {
+      "get": {
+        "tags": [
+          "系统—图片附件管理"
+        ],
+        "summary": "获取图片附件List",
+        "description": "获取图片附件List",
+        "operationId": "getFileMediaListUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "refId",
+            "in": "query",
+            "description": "refId",
+            "required": false,
+            "type": "string",
+            "default": "refId_123"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/file/media/saveFileMedia.do": {
+      "put": {
+        "tags": [
+          "系统—图片附件管理"
+        ],
+        "summary": "保存图片附件",
+        "description": "保存图片附件",
+        "operationId": "saveFileMediaUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "dtoList",
+            "description": "dtoList",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileMediaDTO",
+                "originalRef": "FileMediaDTO"
+              }
+            }
+          },
+          {
+            "name": "refId",
+            "in": "query",
+            "description": "refId",
+            "required": false,
+            "type": "string",
+            "default": "refId_123"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/file/report/createReportTask.do": {
+      "put": {
+        "tags": [
+          "系统—文件导出管理"
+        ],
+        "summary": "导出文件—创建任务",
+        "description": "导出文件—创建任务",
+        "operationId": "createReportTaskUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "fileType",
+            "required": false,
+            "type": "string",
+            "default": "exportScheData"
+          },
+          {
+            "name": "reportParams",
+            "in": "query",
+            "description": "reportParams",
+            "required": false,
+            "type": "string",
+            "default": "{\"name\":\"%7%\"}"
+          },
+          {
+            "name": "routingKey",
+            "in": "query",
+            "description": "routingKey",
+            "required": false,
+            "type": "string",
+            "default": "SCHE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/system/legalHoliday/delLegalHoliday": {
+      "put": {
+        "tags": [
+          "系统—法定节假日管理"
+        ],
+        "summary": "删除",
+        "description": "删除",
+        "operationId": "delLegalHolidayUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "yearNum",
+            "in": "query",
+            "description": "年度",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/system/legalHoliday/saveLegalHoliday": {
+      "put": {
+        "tags": [
+          "系统—法定节假日管理"
+        ],
+        "summary": "保存法定节假日",
+        "description": "保存法定节假日",
+        "operationId": "saveLegalHolidayUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "dateBeanList",
+            "description": "dateBeanList",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LegalHolidayDateBean",
+                "originalRef": "LegalHolidayDateBean"
+              }
+            }
+          },
+          {
+            "name": "yearNum",
+            "in": "query",
+            "description": "年度",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/system/legalHoliday/searchLegalHoliday": {
+      "get": {
+        "tags": [
+          "系统—法定节假日管理"
+        ],
+        "summary": "查询法定节假日列表",
+        "description": "查询法定节假日列表",
+        "operationId": "searchLegalHolidayUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "yearNum",
+            "in": "query",
+            "description": "年度",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/system/legalHoliday/viewLegalHoliday": {
+      "get": {
+        "tags": [
+          "系统—法定节假日管理"
+        ],
+        "summary": "查看详情",
+        "description": "查看详情",
+        "operationId": "viewLegalHolidayUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "yearNum",
+            "in": "query",
+            "description": "年度值",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/mgr/weixin/jssdk/ajaxAgentAuthorize": {
+      "get": {
+        "tags": [
+          "JS-SDK接口"
+        ],
+        "summary": "获取应用签名信息",
+        "operationId": "ajaxAgentAuthorizeUsingGET",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "corpId",
+            "in": "query",
+            "description": "corpId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "description": "url",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JSApiTicketVO",
+              "originalRef": "JSApiTicketVO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/status": {
+      "options": {
+        "tags": [
+          "_status"
+        ],
+        "summary": "状态码列表",
+        "operationId": "requireStatusCodesUsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "接口版本号，如v1.0",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "0": {
+            "description": "执行成功"
+          },
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "当前用户权限不足"
+          },
+          "403": {
+            "description": "禁止访问"
+          },
+          "404": {
+            "description": "内容不存在"
+          },
+          "500": {
+            "description": "服务器异常"
+          },
+          "40001": {
+            "description": "Token无效"
+          },
+          "40002": {
+            "description": "字段校验非法"
+          },
+          "40003": {
+            "description": "参数类型非法"
+          },
+          "40004": {
+            "description": "JSON解释出错"
+          },
+          "41001": {
+            "description": "HTTP消息不可读"
+          },
+          "41002": {
+            "description": "不支持的HTTP请求方法"
+          },
+          "42001": {
+            "description": "SQL语句执行出错"
+          },
+          "42002": {
+            "description": "数据库中已存在该记录"
+          },
+          "-1": {
+            "description": "系统繁忙，请稍后再试"
+          },
+          "-3": {
+            "description": "服务繁忙，请稍后重试"
+          }
+        },
+        "security": [
+          {
+            "api_key": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "X-Auth0-Token",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "CopyToTaskEntity": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "applicationName": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "formModelCode": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "initiator": {
+          "type": "string"
+        },
+        "initiatorId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "processDefinitionId": {
+          "type": "string"
+        },
+        "processInstanceId": {
+          "type": "string"
+        },
+        "processModelId": {
+          "type": "string"
+        },
+        "processName": {
+          "type": "string"
+        },
+        "read": {
+          "type": "boolean"
+        },
+        "readTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requestPathParams": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "START_PROCESS",
+            "TODO",
+            "HAVE_DONE",
+            "INITIATOR",
+            "COPY_TO",
+            "NONE"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "CopyToTaskEntity"
+    },
+    "FileMediaDTO": {
+      "type": "object",
+      "properties": {
+        "fileExt": {
+          "type": "string",
+          "example": "png",
+          "description": "后缀"
+        },
+        "fileName": {
+          "type": "string",
+          "description": "名称"
+        },
+        "fileSize": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1024,
+          "description": "大小"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "排序号"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "类型：1:图片（image）；2:普通文件(file) "
+        },
+        "url": {
+          "type": "string",
+          "description": "路径：文件相对路径地址，如果以http开头即表示全路径"
+        }
+      },
+      "title": "FileMediaDTO"
+    },
+    "HaveDoneTaskEntity": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "applicationName": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "formModelCode": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "initiator": {
+          "type": "string"
+        },
+        "initiatorId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "processDefinitionId": {
+          "type": "string"
+        },
+        "processInstanceId": {
+          "type": "string"
+        },
+        "processModelId": {
+          "type": "string"
+        },
+        "processName": {
+          "type": "string"
+        },
+        "recTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requestPathParams": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "START_PROCESS",
+            "TODO",
+            "HAVE_DONE",
+            "INITIATOR",
+            "COPY_TO",
+            "NONE"
+          ]
+        },
+        "state": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "HaveDoneTaskEntity"
+    },
+    "InitiateTaskEntity": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "applicationName": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "formModelCode": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "initiatorId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "processDefinitionId": {
+          "type": "string"
+        },
+        "processInstanceId": {
+          "type": "string"
+        },
+        "processModelId": {
+          "type": "string"
+        },
+        "processName": {
+          "type": "string"
+        },
+        "processStatus": {
+          "type": "string",
+          "enum": [
+            "PROCESSING",
+            "COMPLETED",
+            "REVOKED",
+            "ALREADY_PROCESSED",
+            "ROLLED_BACK",
+            "SINGLE_STEP_RECYCLING",
+            "TERMINATED",
+            "NONE"
+          ]
+        },
+        "requestPathParams": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "START_PROCESS",
+            "TODO",
+            "HAVE_DONE",
+            "INITIATOR",
+            "COPY_TO",
+            "NONE"
+          ]
+        },
+        "state": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "InitiateTaskEntity"
+    },
+    "JSApiTicketVO": {
+      "type": "object",
+      "properties": {
+        "corpId": {
+          "type": "string"
+        },
+        "noncestr": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "JSApiTicketVO"
+    },
+    "LegalHolidayDateBean": {
+      "type": "object",
+      "properties": {
+        "endDate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "startDate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "LegalHolidayDateBean"
+    },
+    "RestPage«CopyToTaskEntity»": {
+      "type": "object",
+      "properties": {
+        "currPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "当前页数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CopyToTaskEntity",
+            "originalRef": "CopyToTaskEntity"
+          }
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页记录数"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 50,
+          "description": "总记录数"
+        },
+        "totalPage": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "总页数"
+        }
+      },
+      "title": "RestPage«CopyToTaskEntity»",
+      "description": "基础分页"
+    },
+    "RestPage«HaveDoneTaskEntity»": {
+      "type": "object",
+      "properties": {
+        "currPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "当前页数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HaveDoneTaskEntity",
+            "originalRef": "HaveDoneTaskEntity"
+          }
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页记录数"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 50,
+          "description": "总记录数"
+        },
+        "totalPage": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "总页数"
+        }
+      },
+      "title": "RestPage«HaveDoneTaskEntity»",
+      "description": "基础分页"
+    },
+    "RestPage«InitiateTaskEntity»": {
+      "type": "object",
+      "properties": {
+        "currPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "当前页数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InitiateTaskEntity",
+            "originalRef": "InitiateTaskEntity"
+          }
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页记录数"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 50,
+          "description": "总记录数"
+        },
+        "totalPage": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "总页数"
+        }
+      },
+      "title": "RestPage«InitiateTaskEntity»",
+      "description": "基础分页"
+    },
+    "RestPage«TodoTaskEntity»": {
+      "type": "object",
+      "properties": {
+        "currPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "当前页数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TodoTaskEntity",
+            "originalRef": "TodoTaskEntity"
+          }
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页记录数"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 50,
+          "description": "总记录数"
+        },
+        "totalPage": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "总页数"
+        }
+      },
+      "title": "RestPage«TodoTaskEntity»",
+      "description": "基础分页"
+    },
+    "TodoTaskEntity": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "applicationName": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "formModelCode": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "initiator": {
+          "type": "string"
+        },
+        "initiatorId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "processDefinitionId": {
+          "type": "string"
+        },
+        "processInstanceId": {
+          "type": "string"
+        },
+        "processModelId": {
+          "type": "string"
+        },
+        "processName": {
+          "type": "string"
+        },
+        "recTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requestPathParams": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "START_PROCESS",
+            "TODO",
+            "HAVE_DONE",
+            "INITIATOR",
+            "COPY_TO",
+            "NONE"
+          ]
+        },
+        "state": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "TodoTaskEntity"
+    },
+    "UserInfoDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfoDTO"
+    },
+    "流程-回退节点出参": {
+      "type": "object",
+      "required": [
+        "applicationId",
+        "flowModelName",
+        "formId",
+        "modelCode",
+        "processModelId"
+      ],
+      "properties": {
+        "applicationId": {
+          "type": "string",
+          "description": "应用id"
+        },
+        "flowModelName": {
+          "type": "string",
+          "description": "流程模型名称"
+        },
+        "formId": {
+          "type": "string",
+          "description": "表单id"
+        },
+        "modelCode": {
+          "type": "string",
+          "description": "流程模型码"
+        },
+        "processModelId": {
+          "type": "string",
+          "description": "流程模型id"
+        }
+      },
+      "title": "流程-回退节点出参"
+    },
+    "流程-审批人出参": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "审批人id"
+        },
+        "name": {
+          "type": "string",
+          "description": "审批人名字"
+        }
+      },
+      "title": "流程-审批人出参"
+    },
+    "流程-查看流程入参": {
+      "type": "object",
+      "required": [
+        "flowId",
+        "flowType",
+        "nodeId",
+        "scope",
+        "taskId"
+      ],
+      "properties": {
+        "flowId": {
+          "type": "string",
+          "example": 4984651635484651,
+          "description": "流程实例id"
+        },
+        "flowType": {
+          "type": "string",
+          "example": "leave",
+          "description": "流程类型"
+        },
+        "nodeId": {
+          "type": "string",
+          "example": 456484151965451,
+          "description": "节点id"
+        },
+        "scope": {
+          "type": "string",
+          "example": "INITIATOR（发起）、TODO（待办）、HAVE_DONE（已办）、COPY_TO（抄送）",
+          "description": "作用范围"
+        },
+        "taskId": {
+          "type": "string",
+          "example": 456484151965451,
+          "description": "任务id"
+        }
+      },
+      "title": "流程-查看流程入参"
+    },
+    "流程-查看流程详情出参": {
+      "type": "object",
+      "required": [
+        "approversVOList",
+        "authorId",
+        "authorName",
+        "circulationDetailsVOList",
+        "flowId",
+        "flowStatus",
+        "formData",
+        "nodeId",
+        "operationsTypeList",
+        "taskId",
+        "title"
+      ],
+      "properties": {
+        "approversVOList": {
+          "type": "array",
+          "description": "当前审批人",
+          "items": {
+            "$ref": "#/definitions/流程-审批人出参",
+            "originalRef": "流程-审批人出参"
+          }
+        },
+        "authorId": {
+          "type": "string",
+          "description": "流程发起人id"
+        },
+        "authorName": {
+          "type": "string",
+          "description": "流程发起人名字"
+        },
+        "circulationDetailsVOList": {
+          "type": "array",
+          "description": "流转明细",
+          "items": {
+            "$ref": "#/definitions/流程-流转明细出参",
+            "originalRef": "流程-流转明细出参"
+          }
+        },
+        "flowId": {
+          "type": "string",
+          "description": "流程实例id"
+        },
+        "flowStatus": {
+          "type": "string",
+          "description": "流程状态"
+        },
+        "formData": {
+          "type": "object",
+          "description": "表单数据",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "流程节点id"
+        },
+        "operationsTypeList": {
+          "type": "array",
+          "example": "return_with_validate:驳回，circularize_operation:抄送，submit_with_validate：办理，revoke_with_validate：撤销，signature_operation：加签，terminate_with_validate：终止，recover_with_validate：单步回收，agent_operation：委托",
+          "description": "操作按钮类型",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskId": {
+          "type": "string",
+          "description": "任务id"
+        },
+        "title": {
+          "type": "string",
+          "description": "流程标题"
+        }
+      },
+      "title": "流程-查看流程详情出参"
+    },
+    "流程-流程列表入参": {
+      "type": "object",
+      "required": [
+        "currPage",
+        "flowType",
+        "pageSize",
+        "status"
+      ],
+      "properties": {
+        "currPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "当前页码"
+        },
+        "flowType": {
+          "type": "string",
+          "example": "leave",
+          "description": "流程类型"
+        },
+        "initiator": {
+          "type": "string",
+          "example": 1156496465413468700,
+          "description": "流程发起人id"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页显示条数"
+        },
+        "processName": {
+          "type": "string",
+          "example": "事假",
+          "description": "流程名称"
+        },
+        "status": {
+          "type": "string",
+          "example": "-1:所有，0:进行中，1:已完成，2;已撤销，3:已办理，4:已回退，5:单步回收，6:已终止",
+          "description": "状态筛选"
+        },
+        "title": {
+          "type": "string",
+          "example": "能化事假20200827",
+          "description": "标题"
+        }
+      },
+      "title": "流程-流程列表入参"
+    },
+    "流程-流转明细出参": {
+      "type": "object",
+      "required": [
+        "activityName",
+        "createTime",
+        "deptId",
+        "deptName",
+        "read",
+        "receiveTime",
+        "type",
+        "userId",
+        "userName"
+      ],
+      "properties": {
+        "activityName": {
+          "type": "string",
+          "description": "节点名称"
+        },
+        "comment": {
+          "type": "string",
+          "description": "评论内容"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "操作时间"
+        },
+        "deptId": {
+          "type": "string",
+          "description": "部门id"
+        },
+        "deptName": {
+          "type": "string",
+          "description": "部门名"
+        },
+        "read": {
+          "type": "boolean",
+          "description": "是否已阅"
+        },
+        "receiveTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "接收时间"
+        },
+        "type": {
+          "type": "string",
+          "example": "processed=办理，processing=未办理，autoSubmit=自动提交，frontSign=加前签，backSign=加后签，countersSign=加会签，autoTransfer=自动流转到下一个节点，entrust=委托 ，circularize=传阅，recover=单步收回，return=驳回，revoke=撤销，submit=提交，completed=已完成，ongoing=进行中，deleted=已删除，exception=异常，terminated=终止，forwardToHandler=转交，noStatus=\"\"",
+          "description": "操作类型"
+        },
+        "userId": {
+          "type": "string",
+          "description": "用户id"
+        },
+        "userName": {
+          "type": "string",
+          "description": "用户名"
+        }
+      },
+      "title": "流程-流转明细出参"
+    },
+    "通讯录入参": {
+      "type": "object",
+      "properties": {
+        "deptList": {
+          "type": "array",
+          "description": "部门list",
+          "items": {
+            "type": "string"
+          }
+        },
+        "userList": {
+          "type": "array",
+          "description": "人员list",
+          "items": {
+            "type": "string"
+          }
+        },
+        "userName": {
+          "type": "string",
+          "description": "人员名称"
+        }
+      },
+      "title": "通讯录入参"
+    },
+    "通讯录返回实体": {
+      "type": "object",
+      "properties": {
+        "deptInfo": {
+          "type": "array",
+          "description": "部门",
+          "items": {
+            "$ref": "#/definitions/部门返回实体",
+            "originalRef": "部门返回实体"
+          }
+        },
+        "userInfo": {
+          "type": "array",
+          "description": "用户id",
+          "items": {
+            "$ref": "#/definitions/UserInfoDTO",
+            "originalRef": "UserInfoDTO"
+          }
+        }
+      },
+      "title": "通讯录返回实体"
+    },
+    "部门返回实体": {
+      "type": "object",
+      "properties": {
+        "departName": {
+          "type": "string",
+          "example": "广东省公安机关",
+          "description": "部门名称"
+        },
+        "deptId": {
+          "type": "string",
+          "example": "b17efb43292e4cc9ac5d0b46bce059c4",
+          "description": "自定义字段id"
+        },
+        "fullDepartName": {
+          "type": "string",
+          "example": "企业微信演示系统/广东省公安机关",
+          "description": "部门全名称"
+        },
+        "hasPermission": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "是否有权限查看人员"
+        }
+      },
+      "title": "部门返回实体"
+    }
+  }
+}

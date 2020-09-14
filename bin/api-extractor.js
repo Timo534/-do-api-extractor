@@ -2,7 +2,7 @@
 
 const path = require('path')
 const fs = require('fs-extra')
-const { flowRight } = require('lodash')
+const { flowRight, curry } = require('lodash')
 const axios = require('axios')
 const stringify = require('json-stable-stringify-without-jsonify')
 const enquirer = require('enquirer')
@@ -38,6 +38,10 @@ const paramsIn = [
   {
     value: 'formData',
     key: 'data'
+  },
+  {
+    value: 'path',
+    key: 'path'
   }
 ]
 const reviseType = {
@@ -191,16 +195,24 @@ function sortData ({ paths = {} }) {
     const [[method, pathValue = {}]] = Object.entries(val)
     const { summary: description, parameters = [], tags: [tagName] } = pathValue
     // 通过'/'将路径分割成一个数组并且过滤出用户自定义的tag字段
-    const apiUrlSplit = key.split('/').filter(item => item && (tag && tag.includes(tagName)))
+    const apiUrlSplit = key.split('/').filter(item => item && (!tag || tag.includes(tagName)))
     // 数组的最后一个元素的下标
     const lastIndex = apiUrlSplit.length - 1
     apiUrlSplit.reduce((preResult, value, index) => {
+      // 处理path参数
+      if (/^{.+}$/.test(value)) {
+        value = value.replace(/[{,}]/g, '')
+      }
+      if (/\./.test(value)) {
+        value = value.replace(/\..+/g, '')
+      }
       if (index === lastIndex) {
+        const handleParamsCurry = curry(handleParams)(tagName, key)
         preResult[value] = Object.assign({}, apiDescTem, {
           description,
           url: key,
           method
-        }, handleParams(parameters))
+        }, handleParamsCurry(parameters))
       } else {
         preResult[value] = preResult[value] || {}
         return preResult[value]
@@ -215,31 +227,34 @@ function sortData ({ paths = {} }) {
  * @param {Array} paramsArr 接口的parameters参数
  * @return {Object} 一个包含data或者params属性的对象
 */
-function handleParams (paramsArr) {
+function handleParams (tag, url, paramsArr) {
   // 获取key值
-  const value = paramsIn.find(item => paramsArr.some(key => key.in === item.value))
+  const paramsInArr = paramsIn.filter(item => paramsArr.some(key => key.in === item.value))
   // 没有参数则返回一个error对象
-  if (!value) {
-    return {
-      error: {}
-    }
+  if (!paramsInArr.length) {
+    console.log(`${tag}下${url}接口没有定义参数，请自行确认是否需要定义`)
+    return
   }
-  // 过滤header参数
-  const noHeader = paramsArr.filter(item => paramsIn.some(key => key.value === item.in))
   const result = {}
-  noHeader.reduce((lastResult, { name, required, type, description }) => {
-    lastResult[name] = Object.assign({}, apiKeyDescTem, {
-      type: reviseType[type] || type || 'string',
-      description
-    })
-    if (required) {
-      lastResult[name].required = required
-    }
-    return lastResult
-  }, result)
-  return {
-    [value.key]: result
-  }
+  paramsInArr.forEach(paramsIn => {
+    // 过滤header参数
+    const noHeader = paramsArr.filter(item => item.in === paramsIn.value)
+    const lastIndex = noHeader.length - 1
+    noHeader.reduce((lastResult, { name, required, type, description }, index) => {
+      lastResult[name] = Object.assign({}, apiKeyDescTem, {
+        type: reviseType[type] || type || 'string',
+        description
+      })
+      if (required) {
+        lastResult[name].required = required
+      }
+      if (lastIndex === index) {
+        result[paramsIn.key] = lastResult
+      }
+      return lastResult
+    }, {})
+  })
+  return result
 }
 
 /** 将数据写入json文件
@@ -268,6 +283,7 @@ async function startWork () {
   await readConfig()
   realUrl = `${defaultConfig.serverAddress}/v2/api-docs`
   const json = await getData(realUrl)
+  fs.writeJsonSync('data.json', json, { spaces: 2 })
   composeFn(json)
 }
 
