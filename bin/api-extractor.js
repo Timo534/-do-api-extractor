@@ -2,7 +2,7 @@
 
 const path = require('path')
 const fs = require('fs-extra')
-const { flowRight, curry } = require('lodash')
+const { flowRight } = require('lodash')
 const axios = require('axios')
 const stringify = require('json-stable-stringify-without-jsonify')
 const enquirer = require('enquirer')
@@ -10,11 +10,12 @@ const color = require('colors-console')
 
 const defaultConfig = {
   serverAddress: '',
+  tag: '',
   outputDir: 'apiExtractor',
   fileName: 'apiResult'
 }
-const realUrl = `${defaultConfig.serverAddress}/v2/api-docs`
-const saveDir = path.join(process.cwd(), `${defaultConfig.outputDir}/${defaultConfig.fileName}.json`)
+let realUrl = `${defaultConfig.serverAddress}/v2/api-docs`
+let saveDir = path.join(process.cwd(), `${defaultConfig.outputDir}/${defaultConfig.fileName}.json`)
 const configFileName = '.apiextractorconfig.js'
 const apiDescTem = {
   description: '',
@@ -53,32 +54,6 @@ if (process.argv.includes('--init')) {
 }
 
 // ------  工具函数START ------------
-
-/** 判断属性在对象中是否存在
- * @method 方法名
- * @param{Object} targe 目标对象
- * @param{Array} keyArr 目标key和父key的数组
- * @return {Object} 返回目前对象
- */
-function isExist (target, keyArr) {
-  let isExist = true
-  const lastResult = keyArr.reduce((lastResult, currentKey) => {
-    if (!isExist) {
-      return lastResult
-    }
-    const target = lastResult[currentKey]
-    if (!target) {
-      isExist = false
-      return lastResult
-    }
-    return target
-  }, target)
-  return {
-    isExist,
-    lastResult
-  }
-}
-
 // ------  工具函数END ------------
 
 // ------  业务函数START ------------
@@ -147,17 +122,25 @@ function promptUser () {
     },
     {
       type: 'input',
+      name: 'tag',
+      message: '请输入你想获取接口的标签名（多个可以使用“ | ”隔开，为空默认获取全部接口数据）：'
+    },
+    {
+      type: 'input',
       name: 'outputDir',
-      message: '你希望输出的文件存在在什么目录下（例子：假如你想存放在根目录下的apiResult/api目录下，则输入apiResult/api即可）：'
+      message: '你希望输出的文件存在在什么目录下（例子：假如你想存放在根目录下的apiResult/api目录下，则输入apiResult/api即可，默认为apiExtractor）：'
     },
     {
       type: 'input',
       name: 'fileName',
-      message: '想给输出的文件取什么名字？请输入：'
+      message: '想给输出的文件取什么名字？请输入（默认为apiResult）：'
     }
   ]).then(answers => {
     for (const key of Reflect.ownKeys(answers)) {
       !answers[key] && delete answers[key]
+    }
+    if (answers.tag) {
+      answers.tag = answers.tag.split('|')
     }
     const config = Object.assign({}, defaultConfig, answers)
     addIgnore()
@@ -185,9 +168,9 @@ function writeFile (config) {
  *@return {Object} 接口返回的数据
 */
 async function getData (url) {
-  let result = {}
+  console.log(url)
   if (/^(http|https):\/\//.test(url)) {
-    result = await axios.get(url)
+    const result = await axios.get(url)
       .catch(() => {
         return Promise.reject('访问出错：' + url)
       })
@@ -204,28 +187,26 @@ async function getData (url) {
 */
 function sortData ({ paths = {} }) {
   const result = {}
-  const isExistCurry = curry(isExist)(result)
   for (const [key, val] of Object.entries(paths)) {
-    // 通过'/'将路径分割成一个数组
-    const apiUrlSplit = key.split('/').filter(item => item)
+    const { tag } = defaultConfig
+    const [[method, pathValue = {}]] = Object.entries(val)
+    const { summary: description, parameters = [], tags: [tagName] } = pathValue
+    // 通过'/'将路径分割成一个数组并且过滤出用户自定义的tag字段
+    const apiUrlSplit = key.split('/').filter(item => item && (tag && tag.includes(tagName)))
     // 数组的最后一个元素的下标
     const lastIndex = apiUrlSplit.length - 1
-    apiUrlSplit.forEach((item, index) => {
-      const target = isExistCurry(apiUrlSplit.slice(0, index + 1))
-      if (index < lastIndex) {
-        if (!target.isExist) {
-          target.lastResult[item] = {}
-        }
-      } else {
-        const [[method, pathValue = {}]] = Object.entries(val)
-        const { summary: description, parameters = [] } = pathValue
-        target.lastResult[item] = Object.assign({}, apiDescTem, {
+    apiUrlSplit.reduce((preResult, value, index) => {
+      if (index === lastIndex) {
+        preResult[value] = Object.assign({}, apiDescTem, {
           description,
           url: key,
           method
         }, handleParams(parameters))
+      } else {
+        preResult[value] = preResult[value] || {}
+        return preResult[value]
       }
-    })
+    }, result)
   }
   return result
 }
@@ -268,6 +249,7 @@ function handleParams (paramsArr) {
  * @return {void}
 */
 function writeJson (data = {}) {
+  saveDir = path.join(process.cwd(), `${defaultConfig.outputDir}/${defaultConfig.fileName}.json`)
   try {
     fs.writeJsonSync(saveDir, data, { spaces: 2 })
   } catch (e) {
@@ -285,6 +267,7 @@ function writeJson (data = {}) {
 async function startWork () {
   const composeFn = flowRight(writeJson, sortData)
   await readConfig()
+  realUrl = `${defaultConfig.serverAddress}/v2/api-docs`
   const json = await getData(realUrl)
   composeFn(json)
 }
